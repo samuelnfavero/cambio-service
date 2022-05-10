@@ -12,3 +12,4 @@ spring:
       database: admin
       username: samuelnfavero@gmail.com
       password: mongo123
+      authentication-database: admin
