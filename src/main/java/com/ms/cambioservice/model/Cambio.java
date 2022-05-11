@@ -2,30 +2,40 @@ package com.ms.cambioservice.model;
 
 import com.ms.cambioservice.dto.CambioRequest;
 import lombok.*;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Document("cambio")
+@Entity
+@Table(name = "cambio")
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode
 public class Cambio implements Serializable {
 
+
+
     @Id
-    private ObjectId id;
-    private String from;
-    private String to;
+    @GeneratedValue
+    private Long id;
+    @Column
+    private String moneyFrom;
+    @Column
+    private String moneyTo;
+    @Column
     private BigDecimal conversionFactor;
+    @Column
     private BigDecimal convertedValue;
+    @Column
     private String enviroment;
 
     public Cambio(CambioRequest cambioRequest) {
-        this.from = cambioRequest.getFrom();
-        this.to = cambioRequest.getTo();
+        this.moneyFrom = cambioRequest.getFrom();
+        this.moneyTo = cambioRequest.getTo();
         this.conversionFactor = cambioRequest.getConversionFactor();
 
     }
+
+
 }

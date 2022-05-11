@@ -5,11 +5,19 @@ spring:
   application:
     name: cambio-service
 
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: admin
-      username: samuelnfavero@gmail.com
-      password: mongo123
-      authentication-database: admin
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: admin
+#      username: samuelnfavero@gmail.com
+#      password: mongo123
+#      authentication-database: admin
+
+  datasource:
+    url: jdbc:postgresql://kesavan.db.elephantsql.com:5432/vexidkhx
+    username: vexidkhx
+    password: cl7Ip7Z3YCZA9ZpZkAe5vwdILK5pSydB
+  jpa:
+    hibernate:
+      ddl-auto: update
