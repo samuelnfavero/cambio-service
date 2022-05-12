@@ -15,9 +15,27 @@ spring:
 #      authentication-database: admin
 
   datasource:
-    url: jdbc:postgresql://kesavan.db.elephantsql.com:5432/vexidkhx
-    username: vexidkhx
-    password: cl7Ip7Z3YCZA9ZpZkAe5vwdILK5pSydB
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres123
+    hikari:
+      schema: migrations
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+  flyway:
+    url: jdbc:postgresql://localhost:5432/
+    schemas: postgres
+    user: postgres
+    password: postgres123
+
