@@ -8,33 +8,30 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "cambio")
+@Entity(name = "cambio")
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode
 public class Cambio implements Serializable {
 
-
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(name = "from_currency",nullable = false , length = 3)
     private String moneyFrom;
-    @Column
+    @Column(name = "to_currency",nullable = false, length = 3)
     private String moneyTo;
-    @Column
+    @Column(nullable = false)
     private BigDecimal conversionFactor;
-    @Column
+    @Transient
     private BigDecimal convertedValue;
-    @Column
+    @Transient
     private String enviroment;
 
     public Cambio(CambioRequest cambioRequest) {
         this.moneyFrom = cambioRequest.getFrom();
         this.moneyTo = cambioRequest.getTo();
-        this.conversionFactor = cambioRequest.getConversionFactor();
-
     }
 
 

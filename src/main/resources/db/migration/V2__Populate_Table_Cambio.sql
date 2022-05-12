@@ -1,4 +1,4 @@
-﻿INSERT INTO cambio (id,from_currency, to_currency, conversion_factor) VALUES
+﻿INSERT INTO "cambio" (id, from_currency, to_currency, conversion_factor) VALUES
                      (1, 'USD', 'BRL', 5.73),
 					 (2, 'USD', 'EUR', 0.84),
 					 (3, 'USD', 'GBP', 0.73),

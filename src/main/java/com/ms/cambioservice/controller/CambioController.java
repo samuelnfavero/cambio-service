@@ -23,15 +23,16 @@ public class CambioController {
         this.cambioService = cambioService;
     }
 
-//    @GetMapping("/{amount}/{from}/{to}")
-//    public Cambio getCambio(
-//            @PathVariable("amount") BigDecimal amount,
-//            @PathVariable("from") String from,
-//            @PathVariable("to") String to){
-//
+    @GetMapping("/{amount}/{from}/{to}")
+    public CambioResponse getCambio(
+            @PathVariable("amount") BigDecimal amount,
+            @PathVariable("from") String from,
+            @PathVariable("to") String to){
+
+        return cambioService.getCambio(new CambioRequest(from, to, amount));
 //        var port = enviroment.getProperty("local.server.port");
 //        return new Cambio(1L, from, to, BigDecimal.ONE, BigDecimal.ONE, port);
-//    }
+    }
 
     @PostMapping
     public CambioResponse createCambio(CambioRequest cambioRequest){

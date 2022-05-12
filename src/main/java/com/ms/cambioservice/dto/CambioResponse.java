@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 
 @AllArgsConstructor @Getter
 public class CambioResponse {
-    private Long id;
     private String from;
     private String to;
     private BigDecimal conversionFactor;
@@ -16,7 +15,6 @@ public class CambioResponse {
     private String enviroment;
 
     public CambioResponse(Cambio cambio){
-        this.id = cambio.getId();
         this.from = cambio.getMoneyFrom();
         this.to = cambio.getMoneyTo();
         this.conversionFactor = cambio.getConversionFactor();

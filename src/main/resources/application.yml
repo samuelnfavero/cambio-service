@@ -35,7 +35,7 @@ spring:
 
   flyway:
     url: jdbc:postgresql://localhost:5432/
-    schemas: postgres
+    schemas: migrations
     user: postgres
     password: postgres123
-
+#    locations: classpath:db/migration

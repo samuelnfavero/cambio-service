@@ -6,22 +6,46 @@ import com.ms.cambioservice.dto.CambioResponse;
 import com.ms.cambioservice.model.Cambio;
 import com.ms.cambioservice.repository.CambioRepository;
 import com.ms.cambioservice.service.CambioService;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class CambioServiceImpl implements CambioService {
 
     private final CambioRepository cambioRepository;
 
-    public CambioServiceImpl(CambioRepository cambioRepository, ObjectMapper mapper) {
+    private final Environment environment;
+
+    public CambioServiceImpl(CambioRepository cambioRepository, ObjectMapper mapper, Environment environment) {
         this.cambioRepository = cambioRepository;
+        this.environment = environment;
     }
 
     @Override
     public CambioResponse create(CambioRequest cambioRequest) {
 
         Cambio cambio = new Cambio(cambioRequest);
+        cambio.setId(10L);
+        cambio.setConversionFactor(BigDecimal.TEN);
         Cambio savedCambio = cambioRepository.save(cambio);
         return new CambioResponse(savedCambio);
+    }
+
+    @Override
+    public CambioResponse getCambio(CambioRequest cambioRequest) {
+
+//        Cambio cambio = cambioRepository.findById(2L).get();
+        Cambio cambio = cambioRepository.findByMoneyFromAndMoneyTo(cambioRequest.getFrom(), cambioRequest.getTo())
+                .orElseThrow(() -> new RuntimeException("Cambio não encontrado"));
+        String port = environment.getProperty("local.server.port");
+        cambio.setConvertedValue(convertValue(cambioRequest.getAmount(), cambio.getConversionFactor()));
+        cambio.setEnviroment(port);
+        return new CambioResponse(cambio);
+    }
+
+    private BigDecimal convertValue(BigDecimal amount, BigDecimal conversionFactor){
+        return amount.multiply(conversionFactor);
     }
 }
