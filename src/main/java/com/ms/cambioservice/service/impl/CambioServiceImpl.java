@@ -24,16 +24,6 @@ public class CambioServiceImpl implements CambioService {
     }
 
     @Override
-    public CambioResponse create(CambioRequest cambioRequest) {
-
-        Cambio cambio = new Cambio(cambioRequest);
-        cambio.setId(10L);
-        cambio.setConversionFactor(BigDecimal.TEN);
-        Cambio savedCambio = cambioRepository.save(cambio);
-        return new CambioResponse(savedCambio);
-    }
-
-    @Override
     public CambioResponse getCambio(CambioRequest cambioRequest) {
 
 //        Cambio cambio = cambioRepository.findById(2L).get();
