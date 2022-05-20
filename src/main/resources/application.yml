@@ -20,14 +20,14 @@ spring:
 #      authentication-database: admin
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/cambio-service
+    url: jdbc:postgresql://postgres-compose:5432/cambio-service
     username: postgres
     password: postgres123
     hikari:
       schema: public
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -39,9 +39,9 @@ spring:
 
 
   flyway:
-    url: jdbc:postgresql://localhost:5432/cambio-service
+    url: jdbc:postgresql://postgres-compose:5432/cambio-service
     schemas: public
     user: postgres
     password: postgres123
-#    locations: classpath:db/migration
+    locations: classpath:db/migration
 
