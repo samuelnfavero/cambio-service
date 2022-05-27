@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8001
 
 eureka:
   client:
@@ -9,6 +9,11 @@ eureka:
 spring:
   application:
     name: cambio-service
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:8888
 
 #  data:
 #    mongodb:
@@ -20,7 +25,7 @@ spring:
 #      authentication-database: admin
 
   datasource:
-    url: jdbc:postgresql://postgres-compose:5432/cambio-service
+    url: jdbc:postgresql://localhost:5432/cambio-service
     username: postgres
     password: postgres123
     hikari:
@@ -39,9 +44,32 @@ spring:
 
 
   flyway:
-    url: jdbc:postgresql://postgres-compose:5432/cambio-service
+    url: jdbc:postgresql://localhost:5432/cambio-service
     schemas: public
     user: postgres
     password: postgres123
     locations: classpath:db/migration
 
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: false
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  management:
+    metrics:
+      tags:
+        application=${spring:application:name}:
